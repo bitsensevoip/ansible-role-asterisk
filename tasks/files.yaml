@@ -4,10 +4,9 @@
 - name: Create files asterisk
   sudo: yes
   file:
-  
     path: "{{ item.path }}"
     state: "{{ item.state }}"
     owner: "{{ item.owner }}"
-  
-  with_items: _asterisk_create_files
-  when: _asterisk_create_files is defined
+  with_items: "{{ _asterisk_create_files | default({}) }}"
+  when:
+    _asterisk_create_files is defined

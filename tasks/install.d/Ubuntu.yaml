@@ -8,9 +8,9 @@
 
 
 - name: Install asterisk dependencies
-  
   apt: name={{ item }} state=present update_cache=yes
-  
-  with_items: _asterisk_packages
+  with_items: "{{ _asterisk_packages | default([]) }}"
+  when:
+    - _asterisk_packages is defined
   tags:
     - asterisk

@@ -2,11 +2,13 @@
 # task for dgnest.asterisk
 
 - include: install.d/CentOS.yaml
-  when: ansible_distribution == "CentOS"
+  when:
+    - ansible_os_family == "Redhat"
   tags:
     - asterisk
 
 - include: install.d/Ubuntu.yaml
-  when: ansible_distribution == "Ubuntu"
+  when:
+    - ansible_os_family == "Debian"
   tags:
     - asterisk

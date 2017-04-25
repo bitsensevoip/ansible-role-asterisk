@@ -3,8 +3,7 @@
 
 - name: Install packages via pip asterisk
   sudo: yes
-  
   pip: name="{{ item.name }}" version="{{ item.version }}"
-  
-  when: asterisk_pip_dependencies is defined
-  with_items: asterisk_pip_dependencies
+  when:
+    - asterisk_pip_dependencies is defined
+  with_items: "{{ asterisk_pip_dependencies | default({}) }}"
