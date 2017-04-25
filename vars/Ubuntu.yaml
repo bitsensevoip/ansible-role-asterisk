@@ -3,11 +3,11 @@
 
 _asterisk_package_dependencies:
   - build-essential
-
-
-_asterisk_dependencies:
-  - name: build-essential
-    version: 1.0.0
-
-_asterisk_packages:
-  - packages
+  - git-core
+  - subversion
+  - libjansson-dev
+  - sqlite
+  - autoconf
+  - automake
+  - libxml2-dev
+  - libncurses5-dev
