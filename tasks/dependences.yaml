@@ -6,37 +6,23 @@
   sudo: yes
   apt:
     update_cache: True
-  when: ansible_distribution == "Ubuntu"
+  when:
+    - ansible_distribution == "Ubuntu"
+    - ansible_distribution == "Debian"
   tags:
     - apt
     - update_cache
 
 - name: Install asterisk package dependencies
   sudo: yes
-  apt:
-  
+  package:
     name: "{{ item }}"
-  
     state: present
   register: install_asterisk_package_dependencies
-  when: _asterisk_package_dependencies is defined
   with_items: _asterisk_package_dependencies
+  when:
+    - _asterisk_package_dependencies is defined
   tags:
-    - apt
+    - packages
     - dependencies
 - debug: var=install_asterisk_package_dependencies.stdout_lines
-
-- name: Install asterisk dependencies
-  sudo: yes
-  apt:
-  
-    name: "{{ item.name }}"
-  
-    state: present
-  register: install_asterisk_dependencies
-  when: _asterisk_dependencies is defined
-  with_items: _asterisk_dependencies
-  tags:
-    - apt
-    - dependencies
-- debug: var=install_asterisk_dependencies.stdout_lines
