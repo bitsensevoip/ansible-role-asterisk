@@ -1,2 +1,4 @@
 ---
 # defaults file for dgnest.asterisk
+
+asterisk_version: 13
