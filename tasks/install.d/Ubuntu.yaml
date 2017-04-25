@@ -1,0 +1,16 @@
+---
+
+# task file for dgnest.asterisk
+
+- name: Ensure apt cache is up to date
+  apt:
+    update_cache: yes
+
+
+- name: Install asterisk dependencies
+  
+  apt: name={{ item }} state=present update_cache=yes
+  
+  with_items: _asterisk_packages
+  tags:
+    - asterisk

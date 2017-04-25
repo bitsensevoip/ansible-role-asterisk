@@ -1,0 +1,15 @@
+---
+# tasks file for dgnest.asterisk (CentOS specific)
+
+- name: Ensure apt cache is up to date
+  yum:
+    update_cache: yes
+
+
+- name: Install asterisk dependencies
+  
+  yum: name={{ item }} state=present update_cache=yes
+  
+  with_items: _asterisk_packages
+  tags:
+    - asterisk
