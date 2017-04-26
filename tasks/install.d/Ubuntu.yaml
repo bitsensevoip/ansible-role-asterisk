@@ -6,24 +6,25 @@
   apt:
     update_cache: yes
 
-- name: Let asterisk execute scripts
-  become: true
-  shell: export DEBIAN_FRONTEND=noninteractive && {{ item }} chdir=/tmp/{{ _asterisk_path }}
-  with_items: "{{ _asterisk_scripts | default([]) }}"
-  when:
-    - _asterisk_scripts is defined
+- block:
+  - name: Let asterisk execute scripts
+    become: true
+    command: "{{ item }} chdir={{ _asterisk_path }}"
+    with_items: "{{ _asterisk_scripts | default([]) }}"
+    when:
+      - _asterisk_scripts is defined
 
-- name: Execute makes
-  become: true
-  command: make {{ item }} chdir=/tmp/{{ _asterisk_path }}
-  with_items: "{{ _asterisk_makes | default([]) }}"
-  when:
-    - _asterisk_makes is defined
+  - name: Execute makes
+    become: true
+    command: "{{ item }} chdir={{ _asterisk_path }}"
+    with_items: "{{ _asterisk_makes | default([]) }}"
+    when:
+      - _asterisk_makes is defined
 
-- name: Install asterisk dependencies
-  apt: name={{ item }} state=present update_cache=yes
-  with_items: "{{ _asterisk_packages | default([]) }}"
-  when:
-    - _asterisk_packages is defined
-  tags:
-    - asterisk
+  - name: Install asterisk dependencies
+    apt: name="{{ item }}" state=present update_cache=yes
+    with_items: "{{ _asterisk_packages | default([]) }}"
+    when:
+      - _asterisk_packages is defined
+    tags:
+      - asterisk

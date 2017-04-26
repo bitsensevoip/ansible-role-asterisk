@@ -6,7 +6,6 @@
   file:
     path: "{{ item.path }}"
     state: "{{ item.state }}"
-    owner: "{{ item.owner }}"
   with_items: "{{ _asterisk_create_files | default({}) }}"
   when:
     _asterisk_create_files is defined

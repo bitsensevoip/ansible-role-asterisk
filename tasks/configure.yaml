@@ -1,14 +1,8 @@
 ---
 # task for dgnest.asterisk
 
-- name: download package asterisk
-  get_url:
-    url: "{{ _asterisk_url_wget }}"
-    dest: "/tmp/{{ _asterisk_tar_gz }}"
-  when:
-    - _asterisk_url_wget is defined
-
 - name: unarchive package asterisk
-  unarchive:
-    src: "/tmp/{{ _asterisk_tar_gz }}"
-    dest: "/tmp/{{ _asterisk_path }}"
+  become: true
+  unarchive: src="{{ _asterisk_url_wget }}" dest="/tmp/" remote_src=True
+  when:
+    - _asterisk_path is defined
