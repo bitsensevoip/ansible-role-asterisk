@@ -1,4 +1,6 @@
 ---
 # defaults file for dgnest.asterisk
-
+asterisk_path_run: /var/run/asterisk
+asterisk_user: asterisk
 asterisk_version: 13
+asterisk_configure_options: --with-pjproject-bundled

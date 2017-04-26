@@ -14,6 +14,27 @@
     when:
       - _asterisk_scripts is defined
 
+  - name: Download mp3 source code
+    become: true
+    command: ./contrib/scripts/get_mp3_source.sh chdir={{ _asterisk_path }} creates=addons/mp3/mpg123.h
+
+  - name: Configure asterisk
+    become: true
+    command: ./configure {{ asterisk_configure_options }} chdir={{ _asterisk_path }}
+
+  - name: Create menuselect.makeopts
+    become: true
+    command: make menuselect.makeopts chdir={{ _asterisk_path }}
+
+  - name: Do a bit of menuselect configuration
+    become: true
+    command: "{{ item }} chdir={{ _asterisk_path }}"
+    with_items:
+      - menuselect/menuselect --enable format_mp3
+      - menuselect/menuselect --enable CORE-SOUNDS-EN-WAV --enable CORE-SOUNDS-EN-G722
+      - menuselect/menuselect --enable EXTRA-SOUNDS-EN-GSM --enable EXTRA-SOUNDS-EN-WAV --enable EXTRA-SOUNDS-EN-G722
+      - menuselect/menuselect --disable MOH-OPSOUND-WAV --disable MOH-OPSOUND-GSM --disable MOH-OPSOUND-G722
+
   - name: Execute makes
     become: true
     command: "{{ item }} chdir={{ _asterisk_path }}"
@@ -21,10 +42,19 @@
     when:
       - _asterisk_makes is defined
 
+  - name: Change permission path asterisk
+    become: true
+    file: dest={{ asterisk_path_run }} owner={{ asterisk_user }} recurse=yes
+    when:
+      - _asterisk_path_run is defined
+      - _asterisk_user is defined
+
   - name: Install asterisk dependencies
+    become: true
     apt: name="{{ item }}" state=present update_cache=yes
     with_items: "{{ _asterisk_packages | default([]) }}"
     when:
       - _asterisk_packages is defined
     tags:
       - asterisk
+  when: asterisk_src_download|changed
