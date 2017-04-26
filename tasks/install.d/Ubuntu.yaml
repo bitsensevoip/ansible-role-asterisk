@@ -7,6 +7,11 @@
     update_cache: yes
 
 - block:
+  - name: Let asterisk install dependencies
+    shell: "export DEBIAN_FRONTEND=noninteractive && {{ _asterisk_script_dependences }} chdir={{ _asterisk_path }}"
+    when:
+      - _asterisk_script_dependences is defined
+
   - name: Let asterisk execute scripts
     become: true
     command: "{{ item }} chdir={{ _asterisk_path }}"
@@ -58,4 +63,4 @@
       - _asterisk_packages is defined
     tags:
       - asterisk
-  when: asterisk_src_download|changed
+  # when: asterisk_src_download|changed

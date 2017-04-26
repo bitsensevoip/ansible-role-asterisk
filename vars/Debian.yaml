@@ -15,10 +15,11 @@ _asterisk_create_files:
   - path: '{{ _asterisk_path }}'
     state: directory
 
+_asterisk_script_dependences: ./contrib/scripts/install_prereq install
+
 _asterisk_scripts:
-  - ./contrib/scripts/install_prereq install
   - ./bootstrap.sh
-  # - ./configure
+  - ./configure
 
 _asterisk_makes:
   - make
