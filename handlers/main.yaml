@@ -1,1 +1,9 @@
 # handlers for dgnest.asterisk
+
+- name: restart asterisk
+  become: true
+  service: name=asterisk state=restarted
+
+- name: reload asterisk
+  become: true
+  service: name=asterisk state=reloaded

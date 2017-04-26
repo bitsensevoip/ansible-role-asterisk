@@ -41,6 +41,7 @@
     with_items: "{{ _asterisk_makes | default([]) }}"
     when:
       - _asterisk_makes is defined
+    notify: restart asterisk
 
   - name: Change permission path asterisk
     become: true
