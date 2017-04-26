@@ -1,4 +1,4 @@
-# Ansible Role ansible-role-asterisk
+# Ansible Role asterisk
 
 [![Build Status](https://travis-ci.org/dgnest/ansible-role-asterisk.svg)](https://travis-ci.org/dgnest/ansible-role-asterisk)
 [![GitHub issues](https://img.shields.io/github/issues/dgnest/ansible-role-asterisk.svg)](https://github.com/dgnest/ansible-role-asterisk/issues)
