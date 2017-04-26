@@ -3,11 +3,3 @@
 
 _asterisk_package_dependencies:
   - build-essential
-
-
-_asterisk_dependencies:
-  - name: build-essential
-    version: 1.0.0
-
-_asterisk_packages:
-  - packages

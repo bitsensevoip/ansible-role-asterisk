@@ -1,13 +1,38 @@
 ---
 # vars file for dgnest.asterisk (Ubuntu specific)
 
+_asterisk:
+  templates: {}
+
+_asterisk_url_wget: http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-{{ asterisk_version }}-current.tar.gz
+
+_asterisk_tar_gz: asterisk-{{ asterisk_version }}-current.tar.gz
+
+_asterisk_path: '/tmp/asterisk-13.15.0/'
+#
+
+_asterisk_create_files:
+  - path: '{{ _asterisk_path }}'
+    state: directory
+
+_asterisk_scripts:
+  - ./contrib/scripts/install_prereq install
+  - ./bootstrap.sh
+  - ./configure
+
+_asterisk_makes:
+  - make
+  - make install
+  - make samples
+  - make config
+
 _asterisk_package_dependencies:
   - build-essential
-
-
-_asterisk_dependencies:
-  - name: build-essential
-    version: 1.0.0
-
-_asterisk_packages:
-  - packages
+  - git-core
+  - subversion
+  - libjansson-dev
+  - sqlite
+  - autoconf
+  - automake
+  - libxml2-dev
+  - libncurses5-dev
