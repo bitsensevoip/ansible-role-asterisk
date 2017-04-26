@@ -18,13 +18,15 @@ _asterisk_create_files:
 _asterisk_scripts:
   - ./contrib/scripts/install_prereq install
   - ./bootstrap.sh
-  - ./configure
+  # - ./configure
 
 _asterisk_makes:
   - make
+  - make uninstall
   - make install
   - make samples
   - make config
+  - make install-logrotate
 
 _asterisk_package_dependencies:
   - build-essential
