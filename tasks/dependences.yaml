@@ -1,0 +1,28 @@
+---
+
+# task file for dgnest.asterisk
+
+- name: Update package repositories
+  sudo: yes
+  apt:
+    update_cache: True
+  when:
+    - ansible_distribution == "Ubuntu"
+    - ansible_distribution == "Debian"
+  tags:
+    - apt
+    - update_cache
+
+- name: Install asterisk package dependencies
+  sudo: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  register: install_asterisk_package_dependencies
+  with_items: "{{ _asterisk_package_dependencies | default([]) }}"
+  when:
+    - _asterisk_package_dependencies is defined
+  tags:
+    - packages
+    - dependencies
+- debug: var=install_asterisk_package_dependencies.stdout_lines

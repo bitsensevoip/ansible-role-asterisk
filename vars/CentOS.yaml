@@ -1,0 +1,5 @@
+---
+# vars file for dgnest.asterisk (CentOS specific)
+
+_asterisk_package_dependencies:
+  - build-essential

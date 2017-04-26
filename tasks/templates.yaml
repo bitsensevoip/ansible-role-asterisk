@@ -1,0 +1,10 @@
+---
+# task for dgnest.asterisk
+
+- name: copy templates
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items: "{{ _asterisk.templates | default({}) }}"
+  when:
+    - _asterisk.templates is defined
