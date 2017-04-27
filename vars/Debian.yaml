@@ -23,7 +23,6 @@ _asterisk_scripts:
 
 _asterisk_makes:
   - make
-  - make uninstall
   - make install
   - make samples
   - make config

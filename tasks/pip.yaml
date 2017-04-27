@@ -2,7 +2,7 @@
 # task for dgnest.asterisk
 
 - name: Install packages via pip asterisk
-  sudo: yes
+  become: yes
   pip: name="{{ item.name }}" version="{{ item.version }}"
   when:
     - asterisk_pip_dependencies is defined
