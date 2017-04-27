@@ -7,14 +7,13 @@
   apt:
     update_cache: True
   when:
-    - ansible_distribution == "Ubuntu"
-    - ansible_distribution == "Debian"
+    - ansible_os_family == "Debian"
   tags:
     - apt
     - update_cache
 
 - name: Install asterisk package dependencies
-  sudo: yes
+  become: yes
   package:
     name: "{{ item }}"
     state: present
@@ -25,4 +24,3 @@
   tags:
     - packages
     - dependencies
-- debug: var=install_asterisk_package_dependencies.stdout_lines

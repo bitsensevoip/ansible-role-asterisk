@@ -24,11 +24,6 @@ clean:
 	$(CLEAN)
 
 
-distclean: clean
-	rm -rf $(ROOT_DIR)/lib
-	rm -rf $(ROOT_DIR)/*.egg-info
-	rm -rf $(ROOT_DIR)/demo/*.egg-info
-
 
 environment:
 	$(PYENV)
@@ -45,11 +40,6 @@ install:
 
 roles:
 	$(ROLES_ANSIBLE)
-
-
-maintainer-clean: distclean
-	rm -rf $(BIN_DIR)
-	rm -rf $(ROOT_DIR)/lib/
 
 
 lintcode:
