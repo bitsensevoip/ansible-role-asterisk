@@ -7,10 +7,19 @@
     update_cache: yes
 
 - block:
-  - name: Let asterisk install dependencies
+  - name: Let asterisk install dependencies Debian
+    become: true
     shell: "export DEBIAN_FRONTEND=noninteractive && {{ _asterisk_script_dependences }} chdir={{ _asterisk_path }}"
     when:
       - _asterisk_script_dependences is defined
+      - ansible_distribution == "Debian"
+
+  - name: Let asterisk install dependencies
+    become: true
+    shell: "{{ _asterisk_script_dependences }} chdir={{ _asterisk_path }}"
+    when:
+      - _asterisk_script_dependences is defined
+      - ansible_distribution == "Ubuntu"
 
   - name: Let asterisk execute scripts
     become: true

@@ -3,7 +3,7 @@
 
 - name: unarchive package asterisk
   become: true
-  unarchive: src="{{ _asterisk_url_wget }}" dest="/tmp/" remote_src=True
+  unarchive: src="{{ _asterisk_url_wget }}" dest="{{ _asterisk_wget_path }}" remote_src=True
   when:
     - _asterisk_path is defined
   register: asterisk_src_download
