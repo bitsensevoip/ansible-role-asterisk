@@ -1,15 +1,12 @@
 ---
-# vars file for dgnest.asterisk (Ubuntu specific)
+# vars file for dgnest.asterisk (Debian specific)
+
+_asterisk_url_wget: http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-{{ asterisk_version }}-current.tar.gz
+_asterisk_wget_path: /tmp/
+_asterisk_path: '{{ _asterisk_wget_path }}{{ asterisk_path_tar_name }}/'
 
 _asterisk:
   templates: {}
-
-_asterisk_url_wget: http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-{{ asterisk_version }}-current.tar.gz
-
-_asterisk_tar_gz: asterisk-{{ asterisk_version }}-current.tar.gz
-
-_asterisk_path: '/tmp/asterisk-13.15.0/'
-#
 
 _asterisk_create_files:
   - path: '{{ _asterisk_path }}'
