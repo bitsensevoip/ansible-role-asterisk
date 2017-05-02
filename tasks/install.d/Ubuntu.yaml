@@ -7,40 +7,42 @@
     update_cache: yes
 
 - block:
-  - name: Let asterisk install dependencies
-    shell: "export DEBIAN_FRONTEND=noninteractive && {{ _asterisk_script_dependences }} chdir={{ asterisk_src_path }}"
+  - name: Let asterisk install dependencies Debian
+    become: true
+    shell: "export DEBIAN_FRONTEND=noninteractive && {{ _asterisk_script_dependences }} chdir={{ _asterisk_path }}"
     when:
       - _asterisk_script_dependences is defined
       - ansible_distribution == "Debian"
 
   - name: Let asterisk install dependencies
-    shell: "{{ _asterisk_script_dependences }} chdir={{ asterisk_src_path }}"
+    become: true
+    shell: "{{ _asterisk_script_dependences }} chdir={{ _asterisk_path }}"
     when:
       - _asterisk_script_dependences is defined
       - ansible_distribution == "Ubuntu"
 
   - name: Let asterisk execute scripts
     become: true
-    command: "{{ item }} chdir={{ asterisk_src_path }}"
+    command: "{{ item }} chdir={{ _asterisk_path }}"
     with_items: "{{ _asterisk_scripts | default([]) }}"
     when:
       - _asterisk_scripts is defined
 
   - name: Download mp3 source code
     become: true
-    command: ./contrib/scripts/get_mp3_source.sh chdir={{ asterisk_src_path }} creates=addons/mp3/mpg123.h
+    command: ./contrib/scripts/get_mp3_source.sh chdir={{ _asterisk_path }} creates=addons/mp3/mpg123.h
 
   - name: Configure asterisk
     become: true
-    command: ./configure {{ asterisk_configure_options }} chdir={{ asterisk_src_path }}
+    command: ./configure {{ asterisk_configure_options }} chdir={{ _asterisk_path }}
 
   - name: Create menuselect.makeopts
     become: true
-    command: make menuselect.makeopts chdir={{ asterisk_src_path }}
+    command: make menuselect.makeopts chdir={{ _asterisk_path }}
 
   - name: Do a bit of menuselect configuration
     become: true
-    command: "{{ item }} chdir={{ asterisk_src_path }}"
+    command: "{{ item }} chdir={{ _asterisk_path }}"
     with_items:
       - menuselect/menuselect --enable format_mp3
       - menuselect/menuselect --enable CORE-SOUNDS-EN-WAV --enable CORE-SOUNDS-EN-G722
@@ -49,7 +51,7 @@
 
   - name: Execute makes
     become: true
-    command: "{{ item }} chdir={{ asterisk_src_path }}"
+    command: "{{ item }} chdir={{ _asterisk_path }}"
     with_items: "{{ _asterisk_makes | default([]) }}"
     when:
       - _asterisk_makes is defined
@@ -70,4 +72,4 @@
       - _asterisk_packages is defined
     tags:
       - asterisk
-  when: asterisk_src_download|changed
+  # when: asterisk_src_download|changed

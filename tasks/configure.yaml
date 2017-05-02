@@ -1,18 +1,9 @@
 ---
 # task for dgnest.asterisk
 
-- name: Download/update asterisk src
-  git:
-    repo: https://github.com/asterisk/asterisk.git
-    dest: "{{ asterisk_src_path }}"
-    version: "{{ asterisk_git_version }}"
-    update: "{{ (asterisk_state == 'latest') }}"
-    depth: 1
-  register: asterisk_src_download
-
 - name: unarchive package asterisk
   become: true
-  unarchive: src="{{ _asterisk_url_wget }}" dest="/tmp/" remote_src=True
+  unarchive: src="{{ _asterisk_url_wget }}" dest="{{ _asterisk_wget_path }}" remote_src=True
   when:
-    - asterisk_src_path is defined
+    - _asterisk_path is defined
   register: asterisk_src_download
