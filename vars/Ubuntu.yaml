@@ -12,7 +12,8 @@ _asterisk_create_files:
   - path: '{{ _asterisk_path }}'
     state: directory
 
-_asterisk_script_dependences: ./contrib/scripts/install_prereq install
+# no queremos que corra esto, lo comentamos
+#_asterisk_script_dependences: ./contrib/scripts/install_prereq install
 
 _asterisk_scripts:
   - ./bootstrap.sh
@@ -35,3 +36,57 @@ _asterisk_package_dependencies:
   - automake
   - libxml2-dev
   - libncurses5-dev
+  - aptitude
+  - pkg-config
+  - libedit-dev
+  - libsqlite3-dev
+  - uuid-dev
+  - libspeex-dev
+  - libspeexdsp-dev
+  - libogg-dev
+  - libvorbis-dev
+  - libasound2-dev
+  - portaudio19-dev
+  - libcurl4-openssl-dev
+  - xmlstarlet
+  - bison
+  - flex
+  - libpq-dev
+  - unixodbc-dev
+  - libneon27-dev
+  - libgmime-2.6-dev
+  - liblua5.2-dev
+  - liburiparser-dev
+  - libxslt1-dev
+  - libssl-dev
+  - libvpb-dev
+  - libmysqlclient-dev
+  - libbluetooth-dev
+  - libradcli-dev
+  - freetds-dev
+  - libosptk-dev
+  - libjack-jackd2-dev
+  - bash
+  - libsnmp-dev
+  - libiksemel-dev
+  - libcorosync-common-dev
+  - libcpg-dev
+  - libcfg-dev
+  - libnewt-dev
+  - libpopt-dev
+  - libical-dev
+  - libspandsp-dev
+  - libresample1-dev
+  - libc-client2007e-dev
+  - binutils-dev
+  - libsrtp0-dev
+  - libsrtp2-dev
+  - libgsm1-dev
+  - doxygen
+  - graphviz
+  - zlib1g-dev
+  - libldap2-dev
+  - wget
+  - bzip2
+  - patch
+  - python-dev

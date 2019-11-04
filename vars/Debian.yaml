@@ -35,3 +35,4 @@ _asterisk_package_dependencies:
   - automake
   - libxml2-dev
   - libncurses5-dev
+  - aptitude
